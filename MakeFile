@@ -1,0 +1,19 @@
+CXX = g++
+CXXFLAGS = -std=c++17 -Wall -Wextra -pthread
+GTEST_DIR = /usr/src/googletest/googletest
+GTEST_INCLUDE = -I$(GTEST_DIR)/include -I$(GTEST_DIR)
+GTEST_LIB = -L$(GTEST_DIR)/build/lib -lgtest -lgtest_main -pthread
+
+all: test
+
+prime_factorization.o: prime_factorization.cpp prime_factorization.h
+    $(CXX) $(CXXFLAGS) -c prime_factorization.cpp
+
+test_prime_factorization.o: test_prime_factorization.cpp prime_factorization.h
+    $(CXX) $(CXXFLAGS) $(GTEST_INCLUDE) -c test_prime_factorization.cpp
+
+test: prime_factorization.o test_prime_factorization.o
+    $(CXX) $(CXXFLAGS) prime_factorization.o test_prime_factorization.o $(GTEST_LIB) -o test
+
+clean:
+    rm -f *.o test

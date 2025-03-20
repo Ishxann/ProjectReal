@@ -1,1 +1,3 @@
-int multiply(int a, int b);
+#include <vector>
+std::vector<int> primeFactorize(int n);
+
